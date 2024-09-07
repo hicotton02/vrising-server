@@ -1,23 +1,22 @@
 FROM debian:12-slim
 
-ENV DEBIAN_FRONTEND "noninteractive"
-ENV STEAM_APP_ID "1829350"
-ENV HOME "/opt/steam"
-ENV VRISING_PATH "/opt/steam/vrising"
-ENV WINEPREFIX "/opt/steam/.vrising_prefix"
-
-ENV GAME_PORT "27015"
-ENV QUERY_PORT "27016"
-ENV BIND_ADDRESS "0.0.0.0"
-ENV HIDE_IP "true"
-ENV LOWER_FPS_EMPTY "true"
-ENV SECURE "true"
-ENV DESCRIPTION "A VRISING SERVER"
-ENV EOS_LIST "true"
-ENV STEAM_LIST "false"
-ENV GAME_PRESET "StandardPvP"
-ENV DIFFICULTY "Difficulty_Normal"
-ENV SAVE_NAME "vrising_world"
+ENV DEBIAN_FRONTEND="noninteractive"
+ENV STEAM_APP_ID="1829350"
+ENV HOME="/opt/steam"
+ENV VRISING_PATH="/opt/steam/vrising"
+ENV WINEPREFIX="/opt/steam/.vrising_prefix"
+ENV GAME_PORT="27015"
+ENV QUERY_PORT="27016"
+ENV BIND_ADDRESS="0.0.0.0"
+ENV HIDE_IP="true"
+ENV LOWER_FPS_EMPTY="true"
+ENV SECURE="true"
+ENV DESCRIPTION="A VRISING SERVER"
+ENV EOS_LIST="true"
+ENV STEAM_LIST="false"
+ENV GAME_PRESET="StandardPvP"
+ENV DIFFICULTY="Difficulty_Normal"
+ENV SAVE_NAME="vrising_world"
 
 RUN sed -i 's#^Components: .*#Components: main non-free contrib#g' /etc/apt/sources.list.d/debian.sources \
     && echo steam steam/question select "I AGREE" | debconf-set-selections \
@@ -54,14 +53,19 @@ RUN sed -i 's#^Components: .*#Components: main non-free contrib#g' /etc/apt/sour
     && apt-get clean \
     && apt-get autoremove -y 
 
-COPY entrypoint.sh /opt/steam/entrypoint.sh
-COPY winetricks.sh /opt/steam/winetricks.sh
+COPY ./entrypoint.sh /opt/steam/entrypoint.sh
+COPY ./winetricks.sh /opt/steam/winetricks.sh
 
-RUN mkdir -p "$VRISING_PATH" \
-    && mkdir -p "${VRISING_PATH}/save-data" \
-    && mkdir -p "${VRISING_PATH}/logs" \
+
+RUN ls -l /opt/steam
+
+
+RUN chmod +x /opt/steam/winetricks.sh \
+    && echo "VRISING_PATH is set to: ${VRISING_PATH}" \
+    && mkdir -p "${VRISING_PATH}" "${VRISING_PATH}/save-data" "${VRISING_PATH}/logs" \
     && steamcmd +quit \
     && /opt/steam/winetricks.sh
+
 
 WORKDIR /opt/steam
 
