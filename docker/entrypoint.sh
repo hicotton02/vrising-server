@@ -39,7 +39,6 @@ wine ${VRISING_PATH}/VRisingServer.exe \
     -bindAddress "${BIND_ADDRESS}" \
     -hideIpAddress "${HIDE_IP}" \
     -lowerFPSWhenEmpty "${LOWER_FPS_EMPTY}" \
-    -password "${SERVER_PASSWORD}" \
     -secure "${SECURE}" \
     -listOnEOS "${EOS_LIST}" \
     -listOnSteam "${STEAM_LIST}" \

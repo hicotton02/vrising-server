@@ -11,11 +11,10 @@ volumes:
     size: 50Gi
   storageClassName: ""
 env:
-  serverName: 'V Rising k8s Server'
-  serverPassword: 'picksomethingawesome'
+  serverName: 'Skaz V Rising Server'
   gamePort: 27015
   queryPort: 27016
-  description: 'Super Neat V Rising Server'
+  description: 'Dedicated V Rising PvP Server'
   bindAddress: 0.0.0.0
   hideIpAddress: true
   lowerFPSWhenEmpty: true
