@@ -1,4 +1,4 @@
-image: sknnr/vrising-dedicated-server
+image: theskaz/vrising-dedicated-server
 imageTag: latest
 # serviceType should be LoadBalancer or NodePort
 serviceType: LoadBalancer
