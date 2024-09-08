@@ -57,15 +57,15 @@ COPY ./entrypoint.sh /opt/steam/entrypoint.sh
 COPY ./winetricks.sh /opt/steam/winetricks.sh
 
 
-RUN ls -l /opt/steam
-
+RUN mkdir -p /opt/steam/vrising/VRisingServer_Data/StreamingAssets/Settings \
+    && echo "76561197964251660" > /opt/steam/vrising/VRisingServer_Data/StreamingAssets/Settings/adminlist.txt \
+    && echo "76561199178733140" >> /opt/steam/vrising/VRisingServer_Data/StreamingAssets/Settings/adminlist.txt
 
 RUN chmod +x /opt/steam/winetricks.sh \
     && echo "VRISING_PATH is set to: ${VRISING_PATH}" \
     && mkdir -p "${VRISING_PATH}" "${VRISING_PATH}/save-data" "${VRISING_PATH}/logs" \
     && steamcmd +quit \
     && /opt/steam/winetricks.sh
-
 
 WORKDIR /opt/steam
 
